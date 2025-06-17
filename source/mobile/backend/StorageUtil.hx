@@ -65,6 +65,12 @@ class StorageUtil {
 			CoolUtil.showPopUp('Please create directory to\n' + StorageUtil.getStorageDirectory() + '\nPress OK to close the game', 'Error!');
 			lime.system.System.exit(1);
 		}
+
+		try {
+			if (!FileSystem.exists(StorageUtil.getStorageDirectory() + 'mods'))
+				FileSystem.createDirectory(StorageUtil.getStorageDirectory() + 'mods');
+		}
+		catch (e:Dynamic) {}
 	}
 	#end
 	#end
