@@ -191,7 +191,6 @@
 	<!-- Allow Access to Engine Files in iOS -->
 	<haxedef name="SHARE_MOBILE_FILES" if="ios" />
 
-	<config:android minimum-sdk-version="28" />
 	<haxedef name="message.reporting" value="pretty" />
 	<haxedef name='no-deprecation-warnings' />
 
