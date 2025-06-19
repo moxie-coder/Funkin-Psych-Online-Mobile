@@ -160,7 +160,8 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 
 		if (GameClient.isConnected()) {
 			GameClient.room.state.gameplaySettings.onChange(receiveChange);
-			MusicBeatState.getState().touchPad.visible = false;
+			if (MusicBeatState.getState().touchPad != null)
+				MusicBeatState.getState().touchPad.visible = false;
 		}
 
 		addTouchPad('LEFT_FULL', 'A_B_C');
@@ -201,7 +202,7 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 
 		if (controls.BACK) {
 			controls.isInSubstate = false;
-			if (GameClient.isConnected())
+			if (GameClient.isConnected() && MusicBeatState.getState().touchPad != null)
 				MusicBeatState.getState().touchPad.visible = true;
 			close();
 			ClientPrefs.saveSettings();

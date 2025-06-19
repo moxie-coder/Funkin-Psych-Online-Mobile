@@ -21,54 +21,42 @@ class MobileFunctions {
 
 		Lua_helper.add_callback(lua, "extraButtonPressed", (button:String) -> {
 			button = button.toLowerCase();
-			if (MusicBeatState.getState().hitbox != null) {
-				switch (button) {
-					case 'second':
-						return MusicBeatState.getState().hitbox.buttonExtra2.pressed;
-					default:
-						return MusicBeatState.getState().hitbox.buttonExtra.pressed;
-				}
-			}
-			return false;
+			final hitbox = MusicBeatState.getState().hitbox;
+
+			return switch (button) {
+				case 'second': hitbox?.buttonExtra2?.pressed == true;
+				default: hitbox?.buttonExtra?.pressed == true;
+			};
 		});
 
 		Lua_helper.add_callback(lua, "extraButtonJustPressed", (button:String) -> {
 			button = button.toLowerCase();
-			if (MusicBeatState.getState().hitbox != null) {
-				switch (button) {
-					case 'second':
-						return MusicBeatState.getState().hitbox.buttonExtra2.justPressed;
-					default:
-						return MusicBeatState.getState().hitbox.buttonExtra.justPressed;
-				}
-			}
-			return false;
+			final hitbox = MusicBeatState.getState().hitbox;
+
+			return switch (button) {
+				case 'second': hitbox?.buttonExtra2?.justPressed == true;
+				default: hitbox?.buttonExtra?.justPressed == true;
+			};
 		});
 
 		Lua_helper.add_callback(lua, "extraButtonJustReleased", (button:String) -> {
 			button = button.toLowerCase();
-			if (MusicBeatState.getState().hitbox != null) {
-				switch (button) {
-					case 'second':
-						return MusicBeatState.getState().hitbox.buttonExtra2.justReleased;
-					default:
-						return MusicBeatState.getState().hitbox.buttonExtra.justReleased;
-				}
-			}
-			return false;
+			final hitbox = MusicBeatState.getState().hitbox;
+
+			return switch (button) {
+				case 'second': hitbox?.buttonExtra2?.justReleased == true;
+				default: hitbox?.buttonExtra?.justReleased == true;
+			};
 		});
 
 		Lua_helper.add_callback(lua, "extraButtonReleased", (button:String) -> {
 			button = button.toLowerCase();
-			if (MusicBeatState.getState().hitbox != null) {
-				switch (button) {
-					case 'second':
-						return MusicBeatState.getState().hitbox.buttonExtra2.released;
-					default:
-						return MusicBeatState.getState().hitbox.buttonExtra.released;
-				}
-			}
-			return false;
+			final hitbox = MusicBeatState.getState().hitbox;
+
+			return switch (button) {
+				case 'second': hitbox?.buttonExtra2?.released == true;
+				default: hitbox?.buttonExtra?.released == true;
+			};
 		});
 
 		Lua_helper.add_callback(lua, "vibrate", (?duration:Int, ?period:Int) -> {

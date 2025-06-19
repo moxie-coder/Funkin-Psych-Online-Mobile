@@ -30,8 +30,7 @@ class ExtraFunctions
 					var space = Reflect.getProperty(FlxG.keys.justPressed, 'SPACE');
 					var mobileShit:Bool = false;
 					if (Controls.instance.mobileC)
-						if (MusicBeatState.getState().hitbox != null)
-							mobileShit = MusicBeatState.getState().hitbox.buttonExtra.justPressed;
+						mobileShit = MusicBeatState.getState().hitbox?.buttonExtra?.justPressed == true;
 					return space || mobileShit;
 
 				default:
@@ -44,8 +43,7 @@ class ExtraFunctions
 					var space = Reflect.getProperty(FlxG.keys.pressed, 'SPACE');
 					var mobileShit:Bool = false;
 					if (Controls.instance.mobileC)
-						if (MusicBeatState.getState().hitbox != null)
-							mobileShit = MusicBeatState.getState().hitbox.buttonExtra.pressed;
+						mobileShit = MusicBeatState.getState().hitbox?.buttonExtra?.pressed == true;
 					return space || mobileShit;
 
 				default:
@@ -58,8 +56,7 @@ class ExtraFunctions
 					var space = Reflect.getProperty(FlxG.keys.justReleased, 'SPACE');
 					var mobileShit:Bool = false;
 					if (Controls.instance.mobileC)
-						if (MusicBeatState.getState().hitbox != null)
-							mobileShit = MusicBeatState.getState().hitbox.buttonExtra.justReleased;
+						mobileShit = MusicBeatState.getState().hitbox?.buttonExtra?.justReleased == true;
 					return space || mobileShit;
 
 				default:
@@ -136,8 +133,7 @@ class ExtraFunctions
 				case 'space':
 					var mobileShit:Bool = false;
 					if (Controls.instance.mobileC)
-						if (MusicBeatState.getState().hitbox != null)
-							mobileShit = MusicBeatState.getState().hitbox.buttonExtra.justPressed;
+						mobileShit = MusicBeatState.getState().hitbox?.buttonExtra?.justPressed == true;
 					return PlayState.instance.controls.justPressed('space') || mobileShit;
 				default: return PlayState.instance.controls.justPressed(name);
 			}
@@ -153,8 +149,7 @@ class ExtraFunctions
 				case 'space':
 					var mobileShit:Bool = false;
 					if (Controls.instance.mobileC)
-						if (MusicBeatState.getState().hitbox != null)
-							mobileShit = MusicBeatState.getState().hitbox.buttonExtra.pressed;
+						mobileShit = MusicBeatState.getState().hitbox?.buttonExtra?.pressed == true;
 					return PlayState.instance.controls.pressed('space') || mobileShit;
 				default: return PlayState.instance.controls.pressed(name);
 			}
@@ -170,8 +165,7 @@ class ExtraFunctions
 				case 'space':
 					var mobileShit:Bool = false;
 					if (Controls.instance.mobileC)
-						if (MusicBeatState.getState().hitbox != null)
-							mobileShit = MusicBeatState.getState().hitbox.buttonExtra.justReleased;
+						mobileShit = MusicBeatState.getState().hitbox?.buttonExtra?.justReleased == true;
 					return PlayState.instance.controls.justReleased('space') || mobileShit;
 				default: return PlayState.instance.controls.justReleased(name);
 			}
