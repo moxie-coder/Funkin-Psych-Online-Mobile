@@ -155,7 +155,7 @@ class Mods
 
 		#if MODS_ALLOWED
 		try {
-			for (mod in CoolUtil.coolTextFile(Paths.mods() + 'modsList.txt'))
+			for (mod in CoolUtil.coolTextFile(#if mobile Sys.getCwd() + #end 'modsList.txt'))
 			{
 				//trace('Mod: $mod');
 				if(mod.trim().length < 1) continue;
@@ -181,7 +181,7 @@ class Mods
 		var list:Array<Array<Dynamic>> = [];
 		var added:Array<String> = [];
 		try {
-			for (mod in CoolUtil.coolTextFile(Paths.mods() + 'modsList.txt'))
+			for (mod in CoolUtil.coolTextFile(#if mobile Sys.getCwd() + #end 'modsList.txt'))
 			{
 				var dat:Array<String> = mod.split("|");
 				var folder:String = dat[0];
@@ -215,7 +215,7 @@ class Mods
 			fileStr += values[0] + '|' + (values[1] ? '1' : '0');
 		}
 
-		File.saveContent('modsList.txt', fileStr);
+		File.saveContent(#if mobile Sys.getCwd() + #end 'modsList.txt', fileStr);
 		updatedOnState = true;
 		//trace('Saved modsList.txt');
 		#end

@@ -15,7 +15,7 @@ class StorageUtil {
 		return #if android haxe.io.Path.addTrailingSlash(AndroidContext.getExternalFilesDir()) #elseif ios lime.system.System.documentsDirectory #else Sys.getCwd() #end;
 
 	public static function saveContent(fileName:String, fileData:String, ?alert:Bool = true):Void {
-		final folder:String = #if android mobile.backend.StorageUtil.getExternalStorageDirectory() #else Sys.getCwd() #end +'saves/';
+		final folder:String = #if android StorageUtil.getExternalStorageDirectory() #else Sys.getCwd() #end + 'saves/';
 
 		try {
 			if (!FileSystem.exists(folder))
@@ -67,8 +67,8 @@ class StorageUtil {
 		}
 
 		try {
-			if (!FileSystem.exists(StorageUtil.getExternalStorageDirectory() + 'mods'))
-				FileSystem.createDirectory(StorageUtil.getExternalStorageDirectory() + 'mods');
+			if (!FileSystem.exists(StorageUtil.getExternalStorageDirectory()))
+				FileSystem.createDirectory(StorageUtil.getExternalStorageDirectory());
 		}
 		catch (e:Dynamic) {}
 	}

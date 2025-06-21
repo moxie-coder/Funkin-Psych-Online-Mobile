@@ -1044,7 +1044,7 @@ class RoomState extends MusicBeatState {
 					Alert.alert("Mod couldn't be found!", "Host didn't specify the URL of this mod");
 				}
 				else if (Mods.getModDirectories().contains(GameClient.room.state.modDir)) {
-					Alert.alert("Mod couldn't be found!", "Expected mod data to exist in this path: " + (GameClient.room.state.modDir ?? #if android mobile.backend.StorageUtil.getExternalStorageDirectory() + #elseif mobile Sys.getCwd() + #end "mods/"));
+					Alert.alert("Mod couldn't be found!", "Expected mod data to exist in this path: " + (GameClient.room.state.modDir ?? #if mobile Sys.getCwd() + #end "mods/"));
 				}
 				var sond = FlxG.sound.play(Paths.sound('badnoise' + FlxG.random.int(1, 3)));
 				sond.pitch = 1.1;

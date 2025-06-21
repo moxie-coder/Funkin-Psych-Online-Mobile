@@ -1661,7 +1661,7 @@ class FunkinLua {
 			return;
 		}
 		if (ClientPrefs.isDebug())
-			Sys.println('Lua file loaded succesfully: ' + haxe.io.Path.join([#if android mobile.backend.StorageUtil.getExternalStorageDirectory() #else Sys.getCwd() #end, scriptName]));
+			Sys.println('Lua file loaded succesfully: ' + haxe.io.Path.join([Sys.getCwd(), scriptName]));
 
 		call('onCreate', []);
 		#end
