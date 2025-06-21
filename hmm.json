@@ -6,13 +6,6 @@
       "version": "2.6.0"
     },
     {
-      "name": "lime",
-      "type": "git",
-      "dir": null,
-      "ref": null,
-      "url": "https://github.com/th2l-devs/lime"
-    },
-    {
       "name": "openfl",
       "type": "haxelib",
       "version": "9.3.3"
@@ -38,13 +31,6 @@
       "name": "flixel-ui",
       "type": "haxelib",
       "version": "2.6.4"
-    },
-    {
-      "name": "hxcpp",
-      "type": "git",
-      "dir": null,
-      "ref": null,
-      "url": "https://github.com/th2l-devs/hxcpp"
     },
     {
       "name": "tjson",

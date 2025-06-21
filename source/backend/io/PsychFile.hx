@@ -19,7 +19,7 @@ class PsychFile {
 		/*#if android
 		return StorageUtil.getExternalStorageDirectory();
 		#else*/
-		if (path.startsWith(Sys.getCwd()))
+		if (path.startsWith(Sys.getCwd()) || path.startsWith(Paths.mods()))
 			return path;
 		else
 			return Sys.getCwd() + path;
@@ -51,7 +51,6 @@ class PsychFile {
 		if (FileSystem.exists(cwd(path)))
 			return File.getBytes(cwd(path));
 		#end
-
 
 		switch (haxe.io.Path.extension(path).toLowerCase()) {
 			case 'otf' | 'ttf':

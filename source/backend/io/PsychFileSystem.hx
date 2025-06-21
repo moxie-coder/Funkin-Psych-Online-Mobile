@@ -18,7 +18,7 @@ class PsychFileSystem {
 		/*#if android
 		return StorageUtil.getExternalStorageDirectory();
 		#else*/
-		if (path.startsWith(Sys.getCwd()))
+		if (path.startsWith(Sys.getCwd()) || path.startsWith(Paths.mods()))
 			return path;
 		else
 			return Sys.getCwd() + path;

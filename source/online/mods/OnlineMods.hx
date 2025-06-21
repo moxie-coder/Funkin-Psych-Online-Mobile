@@ -17,8 +17,8 @@ import openfl.display.BitmapData;
 import haxe.zip.Reader;
 import haxe.zip.Entry;
 import online.states.SetupModsState;
-import backend.io.PsychFile as File;
-import backend.io.PsychFileSystem as FileSystem;
+import sys.FileSystem;
+import sys.io.File;
 import online.http.URLScraper;
 
 class OnlineMods {

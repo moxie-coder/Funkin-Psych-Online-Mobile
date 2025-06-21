@@ -53,7 +53,7 @@ class DownloadAlerts extends Sprite {
 					alert.cancelText.text = 'Cancelling...';
 				}
 				else {
-					alert.cancelText.text = 'Cancel: ALT + $i ';
+					alert.cancelText.text = 'Cancel: ${Controls.instance.mobileC ? 'Touch Here' : 'ALT + $i'} ';
 					if (i >= 10) {
 						alert.cancelText.text = "";
 					}
@@ -69,7 +69,7 @@ class DownloadAlerts extends Sprite {
 					case FAILED(exc):
 						alert.setStatus("Failed! " + exc);
 					case DOWNLOADED:
-						alert.setStatus("Preparing to instal...");
+						alert.setStatus("Preparing to install...");
 					case INSTALLING:
 						alert.setStatus("Installing...");
 					case FINISHED:
