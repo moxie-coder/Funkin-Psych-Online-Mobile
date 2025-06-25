@@ -454,7 +454,7 @@ class Paths
 		gottenPath = gottenPath.substring(gottenPath.indexOf(':') + 1, gottenPath.length);
 		// trace(gottenPath);
 		try {
-			if (!currentTrackedSounds.exists(gottenPath)) {
+			if(!currentTrackedSounds.exists(gottenPath)) {
 				var sound:Sound = null;
 				final fullPath:String = #if !mobile './' + #end gottenPath;
 
