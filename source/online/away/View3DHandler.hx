@@ -157,7 +157,7 @@ class View3DHandler extends View3D {
 		}
 
 		if (!debugMode && !PlayState.instance?.paused) {
-			stageScene.update(_delta);
+			stageScene.update(_delta / 1000);
 		}
 
 		camera.rotationX = FlxMath.bound(camera.rotationX, -90, 90);
