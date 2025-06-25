@@ -35,7 +35,11 @@ class FPS extends TextField
 	/**
 		The current frame rate, expressed using frames-per-second
 	**/
-	public var currentFPS(default, null):Float;
+	public var currentFPS(default, null):Int;
+
+	@:noCompletion private var cacheCount:Int;
+	@:noCompletion private var currentTime:Float;
+	@:noCompletion private var times:Array<Float>;
 
 	public var os:String = '';
 
@@ -61,52 +65,80 @@ class FPS extends TextField
 		multiline = true;
 		text = "FPS: ";
 		alpha = 0.9;
+
+		cacheCount = 0;
+		currentTime = 0;
+		times = [];
+
+		#if flash
+		addEventListener(Event.ENTER_FRAME, function(e)
+		{
+			var time = Lib.getTimer();
+			__enterFrame(time - currentTime);
+		});
+		#end
 	}
 
 	// Event Handlers
 	@:noCompletion
 	private #if !flash override #end function __enterFrame(deltaTime:Float):Void
 	{
-		var fps:Float = 1.0 / deltaTime;
-		fps = Math.floor(fps * 100) / 100;
-		currentFPS = fps > ClientPrefs.data.framerate ? ClientPrefs.data.framerate : fps;
-		var optionFramerate = ClientPrefs.data.unlockFramerate ? 1000 : ClientPrefs.data.framerate;
-		if (currentFPS > optionFramerate) currentFPS = optionFramerate;
+		currentTime += deltaTime;
+		times.push(currentTime);
 
-		text = "FPS: " + currentFPS;
-			
-		#if cpp
-		text += '\nRAM: ${flixel.util.FlxStringUtil.formatBytes(external.memory.Memory.getCurrentUsage())}';
-		#end
-
-		#if !HACKER
-		text += os;
-		#end
-
-		#if HACKER
-		text = "";
-		text += "Frames Per Second: " + currentFPS + "\n";
-		@:privateAccess
-		text += "Graphics Card: " + Std.string(flixel.FlxG.stage.context3D.gl.getParameter(flixel.FlxG.stage.context3D.gl.RENDERER)).split("/")[0].trim() + "\n";
-		//text += "Operating System: " + LimeSystem.platformLabel + " " + LimeSystem.platformName + " " + LimeSystem.platformVersion + "\n";
-		text += "Device Model: " + LimeSystem.deviceModel + " " + LimeSystem.deviceVendor + "\n";
-		text += "Number of Connected Monitors: " + LimeSystem.numDisplays + "\n";
-		text += "Game Location: " + LimeSystem.applicationDirectory + "\n";
-		#end
-
-		textColor = 0xFFFFFFFF;
-		if (currentFPS <= optionFramerate / 2)
+		while (times[0] < currentTime - 1000)
 		{
-			textColor = 0xFFFF0000;
+			times.shift();
 		}
 
-		#if (gl_stats && !disable_cffi && (!html5 || !canvas))
-		text += "\ntotalDC: " + Context3DStats.totalDrawCalls();
-		text += "\nstageDC: " + Context3DStats.contextDrawCalls(DrawCallContext.STAGE);
-		text += "\nstage3DDC: " + Context3DStats.contextDrawCalls(DrawCallContext.STAGE3D);
+		var currentCount:Int = times.length;
+		currentFPS = Math.round((currentCount + cacheCount) / 2);
+		var optionFramerate:Int = ClientPrefs.data.unlockFramerate ? 1000 : ClientPrefs.data.framerate;
+		if (currentFPS > optionFramerate) currentFPS = optionFramerate;
+
+		if (currentCount != cacheCount /*&& visible*/)
+		{
+			var fpsText:String = "FPS: " + currentFPS;
+			var otherInfo = "";
+
+			#if !HACKER
+			otherInfo += os;
+			#end
+
+			#if HACKER
+			otherInfo = "";
+			otherInfo += "Frames Per Second: " + currentFPS + "\n";
+			@:privateAccess
+			otherInfo += "Graphics Card: " + Std.string(flixel.FlxG.stage.context3D.gl.getParameter(flixel.FlxG.stage.context3D.gl.RENDERER)).split("/")[0].trim() + "\n";
+			otherInfo += "Device Model: " + LimeSystem.deviceModel + " " + LimeSystem.deviceVendor + "\n";
+			otherInfo += "Number of Connected Monitors: " + LimeSystem.numDisplays + "\n";
+			otherInfo += "Game Location: " + LimeSystem.applicationDirectory + "\n";
+			#end
+
+			fpsTextColor = 0xFFFFFFFF;
+			if (currentFPS <= optionFramerate / 2)
+			{
+				fpsTextColor = 0xFFFF0000;
+			}
+
+			#if (gl_stats && !disable_cffi && (!html5 || !canvas))
+			otherInfo += "\ntotalDC: " + Context3DStats.totalDrawCalls();
+			otherInfo += "\nstageDC: " + Context3DStats.contextDrawCalls(DrawCallContext.STAGE);
+			otherInfo += "\nstage3DDC: " + Context3DStats.contextDrawCalls(DrawCallContext.STAGE3D);
+			#end
+
+			otherInfo += "\n";
+		}
+
+		cacheCount = currentCount;
+
+		var ramText:String = "";
+		#if cpp
+		ramText = '\nRAM: ${flixel.util.FlxStringUtil.formatBytes(external.memory.Memory.getCurrentUsage())}';
 		#end
 
-		text += "\n";
+		text = fpsText + ramText + otherInfo;
+		textColor = fpsTextColor;
 	}
 
 	public inline function positionFPS(X:Float, Y:Float, ?scale:Float = 1){
