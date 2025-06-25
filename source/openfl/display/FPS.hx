@@ -96,18 +96,17 @@ class FPS extends TextField
 		var optionFramerate:Int = ClientPrefs.data.unlockFramerate ? 1000 : ClientPrefs.data.framerate;
 		if (currentFPS > optionFramerate) currentFPS = optionFramerate;
 
+		var fpsText:String = "";
+		var otherInfo = "";
+
 		if (currentCount != cacheCount /*&& visible*/)
 		{
-			var fpsText:String = "FPS: " + currentFPS;
-			var otherInfo = "";
+			fpsText = "FPS: " + currentFPS;
 
-			#if !HACKER
 			otherInfo += os;
-			#end
 
 			#if HACKER
-			otherInfo = "";
-			otherInfo += "Frames Per Second: " + currentFPS + "\n";
+			//otherInfo += "Frames Per Second: " + currentFPS + "\n";
 			@:privateAccess
 			otherInfo += "Graphics Card: " + Std.string(flixel.FlxG.stage.context3D.gl.getParameter(flixel.FlxG.stage.context3D.gl.RENDERER)).split("/")[0].trim() + "\n";
 			otherInfo += "Device Model: " + LimeSystem.deviceModel + " " + LimeSystem.deviceVendor + "\n";
@@ -115,10 +114,10 @@ class FPS extends TextField
 			otherInfo += "Game Location: " + LimeSystem.applicationDirectory + "\n";
 			#end
 
-			fpsTextColor = 0xFFFFFFFF;
+			textColor = 0xFFFFFFFF;
 			if (currentFPS <= optionFramerate / 2)
 			{
-				fpsTextColor = 0xFFFF0000;
+				textColor = 0xFFFF0000;
 			}
 
 			#if (gl_stats && !disable_cffi && (!html5 || !canvas))
@@ -138,7 +137,6 @@ class FPS extends TextField
 		#end
 
 		text = fpsText + ramText + otherInfo;
-		textColor = fpsTextColor;
 	}
 
 	public inline function positionFPS(X:Float, Y:Float, ?scale:Float = 1){
